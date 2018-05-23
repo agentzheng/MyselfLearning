@@ -23,18 +23,25 @@ class Net(torch.nn.Module):
         x=self.out(x)
         return x
 
-net=Net(1,10,1)
 
-print(net)
 
-optimizer = torch.optim.SGD(net.parameters(), lr=0.02)
+net2=torch.nn.Sequential(
+    torch.nn.Linear(1,10),
+    torch.nn.ReLU(),
+    torch.nn.Linear(10,1)
+)
+
+print(net2)
+
+optimizer = torch.optim.SGD(net2.parameters(), lr=0.5)
 
 loss_func = torch.nn.MSELoss()
 
 
 plt.ion()
-for i in range(1000):
-    out=net(x)
+
+for i in range(200):
+    out=net2(x)
     loss=loss_func(out,y)
     optimizer.zero_grad()
     loss.backward()
@@ -47,3 +54,25 @@ for i in range(1000):
 
 plt.ioff()
 plt.show()
+
+
+torch.save(net2, 'net.pkl')  # 保存整个网络
+torch.save(net2.state_dict(), 'net_params.pkl') #只保存参数
+
+
+def restore_net():
+    # restore entire net1 to net2
+    net2 = torch.load('net.pkl')
+    prediction = net2(x)
+
+def restore_params():
+    # 新建 net3
+    net3 = torch.nn.Sequential(
+        torch.nn.Linear(1, 10),
+        torch.nn.ReLU(),
+        torch.nn.Linear(10, 1)
+    )
+
+    # 将保存的参数复制到 net3
+    net3.load_state_dict(torch.load('net_params.pkl'))
+    prediction = net3(x)

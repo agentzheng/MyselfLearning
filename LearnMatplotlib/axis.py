@@ -32,7 +32,6 @@ print(new_ticks)
 plt.xticks(new_ticks)
 # 这里告诉我们matplotlib是支持latex的
 plt.yticks([-2,-1.8,-1,1.22,3,
-
             ],
            [r'$really\ bad$',r'$bad$',r'$5_1$',r'$good$',r'$really\ good$'
             ])

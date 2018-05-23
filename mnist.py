@@ -66,7 +66,7 @@ class CNN(nn.Module):
                 out_channels=16,            # n_filters
                 kernel_size=5,              # filter size
                 stride=1,                   # filter movement/step
-                padding=2,                  # if want same width and length of this image after con2d, padding=(kernel_size-1)/2 if stride=1
+                paddnging=2,                  # if want same width and length of this image after con2d, padding=(kernel_size-1)/2 if stride=1
             ),                              # output shape (16, 28, 28)
             nn.ReLU(),                      # activation
             nn.MaxPool2d(kernel_size=2),    # choose max value in 2x2 area, output shape (16, 14, 14)
